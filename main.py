@@ -23,6 +23,7 @@ def main(page: ft.Page):
 
 
     # Contenedores que sirven para contener otros controles
+    # Generamos y Renderizamos controles mediante un for
     
     lenguajes = ['Python', 'Flet', 'Flutter', 'Hola']
     etiquetas = []
