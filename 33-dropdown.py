@@ -7,7 +7,7 @@ def main(page: ft.Page):
 
     txt_output = ft.Text()
     btn_submit = ft.ElevatedButton(text="Submit", on_click=button_clicked)
-    color_dropdown = ft.Dropdown(
+    color_dropdown = ft.Dropdown(value="Red",
         width=100,
         options=[
             ft.dropdown.Option("Red"),
