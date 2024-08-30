@@ -2,12 +2,16 @@ import flet as ft
 
 
 def main(page: ft.Page):
-    page.title = "App con Vistas Complejas"
+    page.title = "App Mana del Día"
     page.window.width = 375
-    page.window.height = 844
+    page.window.height = 810
+    page.theme_mode = ft.ThemeMode.LIGHT
 
-    # aliya_view = ft.ListView(expand=True, spacing=10)
-    aliya = """26 Miren, hoy les doy a elegir entre la bendición y la maldición: 27 bendición, si obedecen los mandamientos que yo, el Señor su Dios, hoy les mando obedecer; 28 maldición, si desobedecen los mandamientos del Señor su Dios y se apartan del camino que hoy les mando seguir, y se van tras dioses extraños que jamás han conocido. 29 Cuando el Señor su Dios los haya hecho entrar en la tierra que van a poseer, ustedes bendecirán al monte Guerizín y maldecirán al monte Ebal. 30 Esos montes están al otro lado del Jordán, hacia el oeste, en el territorio de los cananeos que viven en el Arabá, en la vecindad de Guilgal, junto a las encinas de Moré. 31 Ustedes están a punto de cruzar el Jordán y entrar a tomar posesión de la tierra que les da el Señor su Dios. Cuando la hayan tomado y ya estén viviendo allí, 32 cuiden de obedecer todos los estatutos y las leyes que hoy les mando."""
+    NRO_PARASHA = 47
+    NAME_PARASHA = "Reé"
+    SIGN_PARASHA = "OBSERVA"
+    INFO_ALIYA = "Aliyá 1, Deuteronomio 11:26 - 12:10"
+    ALIYA = ("""26 Miren, hoy les doy a elegir entre la bendición y la maldición: 27 bendición, si obedecen los mandamientos que yo, el Señor su Dios, hoy les mando obedecer; 28 maldición, si desobedecen los mandamientos del Señor su Dios y se apartan del camino que hoy les mando seguir, y se van tras dioses extraños que jamás han conocido. 29 Cuando el Señor su Dios los haya hecho entrar en la tierra que van a poseer, ustedes bendecirán al monte Guerizín y maldecirán al monte Ebal. 30 Esos montes están al otro lado del Jordán, hacia el oeste, en el territorio de los cananeos que viven en el Arabá, en la vecindad de Guilgal, junto a las encinas de Moré. 31 Ustedes están a punto de cruzar el Jordán y entrar a tomar posesión de la tierra que les da el Señor su Dios. Cuando la hayan tomado y ya estén viviendo allí, 32 cuiden de obedecer todos los estatutos y las leyes que hoy les mando.""" * 4)
 
     content = ft.Column(scroll=ft.ScrollMode.AUTO, expand=True)
 
@@ -48,40 +52,75 @@ def main(page: ft.Page):
                 )
             )
         elif index == 2:
-            img_moises = ft.Image(
-                src=f"assets/moises.png",
-                width=250,
-                height=250,
-                fit=ft.ImageFit.CONTAIN,
+            title_txt = ft.Container(
+                content=ft.Text("Mana del Día", size=30, weight=ft.FontWeight.W_300),
+                # padding=20,
+                alignment=ft.alignment.center,
+                # bgcolor=ft.colors.RED,
             )
 
-            saludo_img = ft.Container(
+            # IMAGE
+            img_moises = ft.Container(
                 content=ft.Image(
                     src=f"assets/moises.png",
-                    width=100,
-                    height=100,
+                    width=250,
+                    height=250,
                     fit=ft.ImageFit.CONTAIN,
                 ),
                 alignment=ft.alignment.center
             )
 
-            saludo_txt = ft.Container(
-                content=ft.Text(aliya),
-                padding=10
+            parasha_nro_txt = ft.Container(
+                content=ft.Text(
+                    f"PARASHA {NRO_PARASHA}",
+                    theme_style=ft.TextThemeStyle.BODY_SMALL,
+                ),
+                alignment=ft.alignment.center
             )
 
-            content.controls.append(
-                ft.Container(
-                    content=ft.Text("Bookmark Screen", size=30),
-                    padding=20,
-                    alignment=ft.alignment.center,
-                    bgcolor=ft.colors.RED
-                )
+            name_parasha_txt = ft.Container(
+                content=ft.Text(
+                    f"{NAME_PARASHA}",
+                    size=40,
+                    weight=ft.FontWeight.W_600,
+                    italic=True
+                ),
+                alignment=ft.alignment.center
             )
+
+            sig_parasha_txt = ft.Container(
+                content=ft.Text(
+                    f"-{SIGN_PARASHA}-",
+                    size=50,
+                    weight=ft.FontWeight.W_700
+                ),
+                alignment=ft.alignment.center
+            )
+
+            info_parasha_txt = ft.Container(
+                content=ft.Text(
+                    f"{INFO_ALIYA}",
+                    size=13,
+                    italic=True,
+                    color=ft.colors.BLACK87
+                ),
+                alignment=ft.alignment.center
+            )
+
+            aliya_txt = ft.Container(
+                content=ft.Text(ALIYA),
+                padding=10,
+                bgcolor=ft.colors.AMBER_50,
+                border_radius=10
+            )
+
+            # content.controls.append(title_txt)
             content.controls.append(img_moises)
-            content.controls.append(saludo_img)
-            content.controls.append(saludo_txt)
-            
+            content.controls.append(parasha_nro_txt)
+            content.controls.append(name_parasha_txt)
+            content.controls.append(sig_parasha_txt)
+            content.controls.append(info_parasha_txt)
+            content.controls.append(aliya_txt)
         elif index == 3:
             content.controls.append(
                 ft.Container(
@@ -130,16 +169,18 @@ def main(page: ft.Page):
             ft.NavigationBarDestination(icon=ft.icons.MENU, label="Más"),
         ],
         selected_index=2,
+        indicator_color=ft.colors.AMBER_100,
         on_change=lambda e: update_content(
             e.control.selected_index
         ),  # Cambiar el contenido según la selección
+        bgcolor=ft.colors.AMBER_200,
     )
 
-    # Inicializar el contenido de la pantalla principal
+    # Start content home view
     update_content(2)
-    page.add(content)  # Agregar contenedor de contenido
-    page.add(nav_bar)  # Agregar barra de navegación
-
+    page.bgcolor=ft.colors.AMBER_100 #color page
+    page.add(content)  # Add container
+    page.add(nav_bar)  # Add navigation
 
 if __name__ == "__main__":
     ft.app(target=main)
