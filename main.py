@@ -6,7 +6,10 @@ def main(page: ft.Page):
     page.window.width = 375
     page.window.height = 844
 
-    content = ft.Column()
+    # aliya_view = ft.ListView(expand=True, spacing=10)
+    aliya = """26 Miren, hoy les doy a elegir entre la bendición y la maldición: 27 bendición, si obedecen los mandamientos que yo, el Señor su Dios, hoy les mando obedecer; 28 maldición, si desobedecen los mandamientos del Señor su Dios y se apartan del camino que hoy les mando seguir, y se van tras dioses extraños que jamás han conocido. 29 Cuando el Señor su Dios los haya hecho entrar en la tierra que van a poseer, ustedes bendecirán al monte Guerizín y maldecirán al monte Ebal. 30 Esos montes están al otro lado del Jordán, hacia el oeste, en el territorio de los cananeos que viven en el Arabá, en la vecindad de Guilgal, junto a las encinas de Moré. 31 Ustedes están a punto de cruzar el Jordán y entrar a tomar posesión de la tierra que les da el Señor su Dios. Cuando la hayan tomado y ya estén viviendo allí, 32 cuiden de obedecer todos los estatutos y las leyes que hoy les mando."""
+
+    content = ft.Column(scroll=ft.ScrollMode.AUTO, expand=True)
 
     def update_content(index):
         content.controls.clear()
@@ -16,6 +19,7 @@ def main(page: ft.Page):
                     content=ft.Text("Explore Screen", size=30),
                     padding=20,
                     alignment=ft.alignment.center,
+                    bgcolor=ft.colors.RED
                 )
             )
             content.controls.append(
@@ -44,22 +48,40 @@ def main(page: ft.Page):
                 )
             )
         elif index == 2:
+            img_moises = ft.Image(
+                src=f"assets/moises.png",
+                width=250,
+                height=250,
+                fit=ft.ImageFit.CONTAIN,
+            )
+
+            saludo_img = ft.Container(
+                content=ft.Image(
+                    src=f"assets/moises.png",
+                    width=100,
+                    height=100,
+                    fit=ft.ImageFit.CONTAIN,
+                ),
+                alignment=ft.alignment.center
+            )
+
+            saludo_txt = ft.Container(
+                content=ft.Text(aliya),
+                padding=10
+            )
+
             content.controls.append(
                 ft.Container(
                     content=ft.Text("Bookmark Screen", size=30),
                     padding=20,
                     alignment=ft.alignment.center,
+                    bgcolor=ft.colors.RED
                 )
             )
-            content.controls.append(
-                ft.Row(
-                    controls=[
-                        ft.Text("Bookmark Content 1"),
-                        ft.Text("Bookmark Content 2"),
-                    ],
-                    alignment="center",
-                )
-            )
+            content.controls.append(img_moises)
+            content.controls.append(saludo_img)
+            content.controls.append(saludo_txt)
+            
         elif index == 3:
             content.controls.append(
                 ft.Container(
